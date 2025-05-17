@@ -1,5 +1,19 @@
 ---
 license: mit
+tags:
+- g2p
+- grapheme-to-phoneme
+- homograph
+- persian
+- homorich
+- phoneme-translation
+- farsi
+- phonemization
+- homograph-disambiguation
+datasets:
+- MahtaFetrat/HomoRich-G2P-Persian
+language:
+- fa
 ---
 
 # Homo-GE2PE: Persian Grapheme-to-Phoneme Conversion with Homograph Disambiguation
@@ -76,4 +90,3 @@ Contributions and pull requests are welcome. Please open an issue to discuss the
 * [Base GE2PE Model](https://github.com/Sharif-SLPL/GE2PE)
 * [HomoRich Dataset](https://huggingface.co/datasets/MahtaFetrat/HomoRich-G2P-Persian)
 * [SentenceBench Persian G2P Benchmark](https://huggingface.co/datasets/MahtaFetrat/SentenceBench)
-
