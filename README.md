@@ -18,7 +18,7 @@ language:
 
 # Homo-GE2PE: Persian Grapheme-to-Phoneme Conversion with Homograph Disambiguation
 
-![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Dataset-orange)
+![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model-orange)
 
 **Homo-GE2PE** is a Persian grapheme-to-phoneme (G2P) model specialized in homograph disambiguation—words with identical spellings but context-dependent pronunciations (e.g., *مرد* pronounced as *mard* "man" or *mord* "died"). Introduced in *[Fast, Not Fancy: Rethinking G2P with Rich Data and Rule-Based Models](link)*, the model extends **GE2PE** by fine-tuning it on the **HomoRich** dataset, explicitly designed for such pronunciation challenges.  
 
