@@ -57,9 +57,40 @@ Below are the performance metrics for each model variant on the SentenceBench da
 
 ---
 
-## Inference
+## Usage  
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Osue8HOgTGMZXIhpvCuiRyfuxpte1v0p?usp=sharing)  
 
-For inference, use the provided `inference.ipynb` notebook or the [Colab link](https://colab.research.google.com/drive/1Osue8HOgTGMZXIhpvCuiRyfuxpte1v0p?usp=sharing). The notebook demonstrates how to load the checkpoints and perform grapheme-to-phoneme conversion using Homo-GE2PE and Homo-T5.
+For inference, run the provided [`inference.ipynb`](https://huggingface.co/MahtaFetrat/Homo-GE2PE-Persian/blob/main/Inference.ipynb) notebook either locally or via the [Colab link](https://colab.research.google.com/drive/1Osue8HOgTGMZXIhpvCuiRyfuxpte1v0p?usp=sharing) (recommended for easy setup).
+
+### Quick Setup  
+1. **Install dependencies**:  
+   ```bash
+   pip install unidecode
+   ```  
+
+2. **Download models**:  
+   ```bash
+   git clone https://huggingface.co/MahtaFetrat/Homo-GE2PE-Persian/
+   unzip -q Homo-GE2PE-Persian/assets/Parsivar.zip
+   unzip -q Homo-GE2PE-Persian/model-weights/homo-ge2pe.zip -d homo-ge2pe
+   unzip -q Homo-GE2PE-Persian/model-weights/homo-t5.zip -d homo-t5
+   mv Homo-GE2PE-Persian/assets/GE2PE.py ./
+   ```  
+
+3. **Fix compatibility** (if needed):  
+   ```bash
+   sed -i 's/from collections import Iterable/from collections.abc import Iterable/g' Parsivar/token_merger.py
+   ```  
+
+### Example Usage  
+```python
+from GE2PE import GE2PE
+
+g2p = GE2PE(model_path='/content/homo-ge2pe') # or homo-t5
+g2p.generate(['تست مدل تبدیل نویسه به واج', 'این کتابِ علی است'], use_rules=True)
+
+# Output: ['teste model t/bdil nevise be vaj', '@in ketabe @ali @/st']
+```
 
 ---
 
@@ -73,7 +104,16 @@ The models in this repository were fine-tuned on HomoRich, the first large-scale
 
 If you use this project in your work, please cite the corresponding paper:
 
-> TODO
+```bibtex
+@misc{qharabagh2025fastfancyrethinkingg2p,
+      title={Fast, Not Fancy: Rethinking G2P with Rich Data and Rule-Based Models}, 
+      author={Mahta Fetrat Qharabagh and Zahra Dehghanian and Hamid R. Rabiee},
+      year={2025},
+      eprint={2505.12973},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2505.12973}, 
+}
 
 ---
 
@@ -85,8 +125,10 @@ Contributions and pull requests are welcome. Please open an issue to discuss the
 
 ### Additional Links
 
-* [Paper PDF](#) (TODO: link to paper)
+* [Link to Paper](https://arxiv.org/abs/2505.12973)
+* [Homo-GE2PE (Github)](https://github.com/MahtaFetrat/Homo-GE2PE-Persian/)
 * [Base GE2PE Paper](https://aclanthology.org/2024.findings-emnlp.196/)
 * [Base GE2PE Model](https://github.com/Sharif-SLPL/GE2PE)
-* [HomoRich Dataset](https://huggingface.co/datasets/MahtaFetrat/HomoRich-G2P-Persian)
+* [HomoRich Dataset (Huggingface)](https://huggingface.co/datasets/MahtaFetrat/HomoRich-G2P-Persian)
+* [HomoRich Dataset (Github)](https://github.com/MahtaFetrat/HomoRich-G2P-Persian)
 * [SentenceBench Persian G2P Benchmark](https://huggingface.co/datasets/MahtaFetrat/SentenceBench)
