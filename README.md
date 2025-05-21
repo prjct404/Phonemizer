@@ -14,7 +14,6 @@ tags:
 - farsi
 - phonemization
 - homograph-disambiguation
-library_name: transformers
 pipeline_tag: text-to-speech
 ---
 
