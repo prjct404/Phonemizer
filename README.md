@@ -1,4 +1,8 @@
 ---
+datasets:
+- MahtaFetrat/HomoRich-G2P-Persian
+language:
+- fa
 license: mit
 tags:
 - g2p
@@ -10,17 +14,15 @@ tags:
 - farsi
 - phonemization
 - homograph-disambiguation
-datasets:
-- MahtaFetrat/HomoRich-G2P-Persian
-language:
-- fa
+library_name: transformers
+pipeline_tag: text-to-speech
 ---
 
 # Homo-GE2PE: Persian Grapheme-to-Phoneme Conversion with Homograph Disambiguation
 
 ![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model-orange)
 
-**Homo-GE2PE** is a Persian grapheme-to-phoneme (G2P) model specialized in homograph disambiguation—words with identical spellings but context-dependent pronunciations (e.g., *مرد* pronounced as *mard* "man" or *mord* "died"). Introduced in *[Fast, Not Fancy: Rethinking G2P with Rich Data and Rule-Based Models](link)*, the model extends **GE2PE** by fine-tuning it on the **HomoRich** dataset, explicitly designed for such pronunciation challenges.  
+**Homo-GE2PE** is a Persian grapheme-to-phoneme (G2P) model specialized in homograph disambiguation—words with identical spellings but context-dependent pronunciations (e.g., *مرد* pronounced as *mard* "man" or *mord* "died"). Introduced in *[Fast, Not Fancy: Rethinking G2P with Rich Data and Rule-Based Models](https://huggingface.co/papers/2505.12973)*, the model extends **GE2PE** by fine-tuning it on the **HomoRich** dataset, explicitly designed for such pronunciation challenges.  
 
 ---
 
