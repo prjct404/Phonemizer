@@ -1,0 +1,14 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"          # expose API on localhost:11434
+    environment:
+      - OLLAMA_HOST=0.0.0.0    # listen on all interfaces *inside* the container
+    volumes:
+      - ollama:/root/.ollama   # persist downloaded models
+    restart: unless-stopped
+
+volumes:
+  ollama:
