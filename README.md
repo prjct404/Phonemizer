@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 datasets:
 - MahtaFetrat/HomoRich-G2P-Persian
@@ -134,3 +135,6 @@ Contributions and pull requests are welcome. Please open an issue to discuss the
 * [HomoRich Dataset (Huggingface)](https://huggingface.co/datasets/MahtaFetrat/HomoRich-G2P-Persian)
 * [HomoRich Dataset (Github)](https://github.com/MahtaFetrat/HomoRich-G2P-Persian)
 * [SentenceBench Persian G2P Benchmark](https://huggingface.co/datasets/MahtaFetrat/SentenceBench)
+=======
+# Phonemizer
+>>>>>>> 2f4e7f78692d28eb83c3b9e5a202272b43cad10b
