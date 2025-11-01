@@ -12,9 +12,97 @@ MODEL_PATH = "model-weights/homo-t5"
 PROMPT_FILE = "prompt_base.txt"
 OPENROUTER_MODEL = "google/gemini-2.5-flash"
 VOICE = "fa-IR-DilaraNeural"  # default voice (female voice)
-os.environ["OPENROUTER_API_KEY"]="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"
+os.environ["OPENROUTER_API_KEY"]="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"
 
 REPLACEMENTS = {"a":"A", "$":"S", "/":"a", "1":"", ";":"Z", "@":"?", "c":"C"}
+
+# --- Persian language validation ---
+def is_persian_text(text):
+    """
+    Check if text is in Persian language.
+    Returns (is_persian, non_persian_chars)
+    """
+    if not text or not text.strip():
+        return False, []
+    
+    # Persian/Arabic Unicode ranges
+    persian_ranges = [
+        (0x0600, 0x06FF),  # Arabic block (includes Persian)
+        (0x06F0, 0x06F9),  # Persian numbers
+        (0x200C, 0x200D),  # Zero-width non-joiner and joiner
+        (0x064B, 0x065F),  # Arabic diacritics
+    ]
+    
+    # Allowed characters: whitespace, punctuation, Persian/Arabic
+    allowed_punctuation = set(".,;:!?()[]{}\"'«»،؛")
+    allowed_whitespace = set(" \t\n\r")
+    
+    non_persian_chars = []
+    persian_char_count = 0
+    total_char_count = 0
+    
+    for char in text:
+        if char in allowed_whitespace:
+            continue  # Skip whitespace
+            
+        total_char_count += 1
+        
+        # Check if character is in Persian ranges
+        is_persian_char = False
+        char_code = ord(char)
+        
+        for start, end in persian_ranges:
+            if start <= char_code <= end:
+                is_persian_char = True
+                persian_char_count += 1
+                break
+        
+        # Allow punctuation
+        if char in allowed_punctuation:
+            continue
+        
+        # If not Persian and not allowed punctuation, it's non-Persian
+        if not is_persian_char and char not in allowed_punctuation:
+            if char not in non_persian_chars:
+                non_persian_chars.append(char)
+    
+    # Text is considered Persian if:
+    # 1. It has Persian characters, AND
+    # 2. At least 70% of non-whitespace characters are Persian, OR
+    # 3. All characters are Persian/allowed (100% Persian)
+    if total_char_count == 0:
+        return False, []
+    
+    persian_ratio = persian_char_count / total_char_count if total_char_count > 0 else 0
+    is_persian = persian_char_count > 0 and (persian_ratio >= 0.7 or len(non_persian_chars) == 0)
+    
+    return is_persian, non_persian_chars
+
+def validate_persian_input(text):
+    """
+    Validate that input text is in Persian.
+    Raises ValueError with descriptive message if not Persian.
+    """
+    if not text or not text.strip():
+        raise ValueError("Text cannot be empty")
+    
+    is_persian, non_persian_chars = is_persian_text(text)
+    
+    if not is_persian:
+        non_persian_sample = ''.join(non_persian_chars[:10])
+        if len(non_persian_chars) > 10:
+            non_persian_sample += "..."
+        
+        error_msg = (
+            f"⚠️ **ERROR: Non-Persian text detected!**\n\n"
+            f"This application only accepts Persian (Farsi) text. "
+            f"Please enter your text in Persian language only.\n\n"
+            f"**Detected non-Persian characters:** `{non_persian_sample}`\n\n"
+            f"Please rewrite your input in Persian and try again."
+        )
+        raise ValueError(error_msg)
+    
+    return True
 
 # --- voice selection helpers ---
 async def list_voices():
@@ -143,12 +231,24 @@ else:
     st.error("❌ No valid voice selected. Please refresh the page.")
     st.stop()
 
-text = st.text_area("✍️ Enter Persian text:", height=150)
+text = st.text_area(
+    "✍️ Enter Persian text:",
+    height=150,
+    help="⚠️ Only Persian (Farsi) text is accepted. Text in other languages will be rejected.",
+    placeholder="ADD Your Persian Text Here..."
+)
 
 if st.button("Convert + Send to LLM + Speak Both"):
     if not text.strip():
         st.error("Please enter text.")
     else:
+        # Validate Persian input
+        try:
+            validate_persian_input(text)
+        except ValueError as e:
+            st.error(str(e))
+            st.stop()
+        
         # GE2PE
         raw = g2p.generate([text], use_rules=True)
         phoneme = replace_chars(raw[0])
