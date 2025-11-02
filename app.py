@@ -9,11 +9,11 @@ from edge_tts.exceptions import NoAudioReceived
 from config import OPENROUTER_API_KEY, DEFAULT_VOICE, OPENROUTER_MODEL, MODEL_PATH, PROMPT_FILE
 
 # --- constants ---
-MODEL_PATH = "model-weights/homo-t5"
-PROMPT_FILE = "prompt_base.txt"
-OPENROUTER_MODEL = "google/gemini-2.5-flash"
-VOICE = "fa-IR-DilaraNeural"  # default voice (female voice)
-os.environ["OPENROUTER_API_KEY"]="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"
+# MODEL_PATH = "model-weights/homo-t5"
+# PROMPT_FILE = "prompt_base.txt"
+# OPENROUTER_MODEL = "google/gemini-2.5-flash"
+# VOICE = "fa-IR-DilaraNeural"  # default voice (female voice)
+# os.environ["OPENROUTER_API_KEY"]="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"
 
 REPLACEMENTS = {"a":"A", "$":"S", "/":"a", "1":"", ";":"Z", "@":"?", "c":"C"}
 
