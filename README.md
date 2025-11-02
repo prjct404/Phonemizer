@@ -6,5 +6,6 @@
    ```  
 2. **run**:  
  ```bash
+   cp env.example .env
    streamlit run main.py
    ```  
