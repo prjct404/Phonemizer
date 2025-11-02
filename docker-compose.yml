@@ -1,14 +1,42 @@
+# services:
+#   app:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile.app
+#     container_name: ge2pe-app
+#     env_file: .env
+#     environment:
+#       MODEL_PATH: ${MODEL_PATH}
+#       PROMPT_FILE: ${PROMPT_FILE}
+#     # mount only what you want outside the image (optional)
+#     volumes:
+#       - ./model-weights:/app/model-weights:ro
+#       - ./prompt_base.txt:/app/prompt_base.txt:ro
+#     ports:
+#       - "${STREAMLIT_PORT:-8501}:8501"
+#     restart: unless-stopped
 services:
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ollama
-    ports:
-      - "11434:11434"          # expose API on localhost:11434
-    environment:
-      - OLLAMA_HOST=0.0.0.0    # listen on all interfaces *inside* the container
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    # Mount the whole folder -> /etc/prometheus
     volumes:
-      - ollama:/root/.ollama   # persist downloaded models
+      - ./monitoring:/etc/prometheus:ro
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
     restart: unless-stopped
 
 volumes:
-  ollama:
+  grafana_data:
+

@@ -8,3 +8,14 @@ __pycache__
 /model-weights
 model-weights/
 .pynb_checkpoints/
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+*.pyc
+.env
+LICENSES/
+testing-scripts/
+training-scripts/
+Parsivar/
+model-weights/
+wheels/

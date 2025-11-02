@@ -15,7 +15,8 @@ unidecode==1.4.0
 jiwer==4.0.0
 asyncio==4.0.0
 
-fastapi
-uvicorn[standard]
-pydantic>=2
-python-multipart
+# fastapi
+# uvicorn[standard]
+# pydantic>=2
+# python-multipart
+# ge2pe
