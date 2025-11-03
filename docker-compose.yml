@@ -1,30 +1,35 @@
-# services:
-#   app:
-#     build:
-#       context: .
-#       dockerfile: Dockerfile.app
-#     container_name: ge2pe-app
-#     env_file: .env
-#     environment:
-#       MODEL_PATH: ${MODEL_PATH}
-#       PROMPT_FILE: ${PROMPT_FILE}
-#     # mount only what you want outside the image (optional)
-#     volumes:
-#       - ./model-weights:/app/model-weights:ro
-#       - ./prompt_base.txt:/app/prompt_base.txt:ro
-#     ports:
-#       - "${STREAMLIT_PORT:-8501}:8501"
-#     restart: unless-stopped
+version: "3.9"
+
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+    volumes:
+      - ./model-weights/homo-t5:/app/model-weights/homo-t5:ro
+      - ./prompt_base.txt:/app/prompt_base.txt:ro
+    ports:
+      - "8501:8501"
+      - "8000:8000"
+    restart: unless-stopped
+    networks: [appnet]
+
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
-    # Mount the whole folder -> /etc/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.retention.time=15d"
+      - "--web.enable-lifecycle"
     volumes:
-      - ./monitoring:/etc/prometheus:ro
+      - ./monitoring:/etc/prometheus:ro   # expects ./monitoring/prometheus.yml
+      - prometheus_data:/prometheus
     ports:
       - "9090:9090"
     restart: unless-stopped
+    networks: [appnet]
 
   grafana:
     image: grafana/grafana-oss:latest
@@ -33,10 +38,17 @@ services:
       - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD:-admin}
     depends_on:
       - prometheus
     restart: unless-stopped
+    networks: [appnet]
 
 volumes:
   grafana_data:
+  prometheus_data:
 
+networks:
+  appnet:
+    driver: bridge

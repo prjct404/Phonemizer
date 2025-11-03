@@ -1,0 +1,14 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["prometheus:9090"]
+
+  # Streamlit app metrics (see step 3 to expose port 8001)
+  - job_name: "streamlit_app"
+    static_configs:
+      - targets: ["app:8000"]

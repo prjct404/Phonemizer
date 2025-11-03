@@ -9,11 +9,12 @@ pandas==2.3.3
 Parsivar==0.2.3.1
 requests==2.32.5
 streamlit==1.51.0
-torch==2.6.0
+#torch==2.6.0 #Commented for Dockerize files (GPU mode took much space and time use Cpu wheel in DOCKER FILE)
 transformers==4.55.0
 unidecode==1.4.0
 jiwer==4.0.0
-asyncio==4.0.0
+prometheus-client==0.21.0
+
 
 # fastapi
 # uvicorn[standard]
