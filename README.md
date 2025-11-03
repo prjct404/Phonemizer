@@ -29,6 +29,7 @@ This project converts **Persian text** into **natural speech** using the followi
 ## 🧱 Project Structure
 
 ---
+```bash
 project/
 ├─ app/
 │  ├─ app.py          # Streamlit UI & pipeline flow
@@ -39,7 +40,7 @@ project/
 ├─ monitoring/
 │  └─ prometheus.yml  # Prometheus scrape configuration
 └─ docker-compose.yml # Prometheus + Grafana stack
-
+ ``` 
 
 ## 📦 Install Dependencies
 
