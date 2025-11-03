@@ -1,9 +1,9 @@
 
 ### Quick Setup  
 1. **Install dependencies**:  
-   ```bash
+ ```bash
    pip install unidecode
-   ```  
+ ```  
 2. **run**:  
  ```bash
    cp env.example .env
