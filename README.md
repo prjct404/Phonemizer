@@ -1,16 +1,15 @@
-# 🗣️ Persian Text → Phoneme → LLM → Speech  
+# 🗣️ Persian Text → Finglish → Phoneme → LLM → Speech  
 ### GE2PE + OpenRouter + Edge-TTS + Prometheus + Grafana
 
 This project converts **Persian text** into **natural speech** using the following pipeline:
 
   GE2PE for Persian → Finglish phoneme conversion
-  
+
   LLM (via OpenRouter) to refine / reconstruct phrasing
   
   Microsoft Edge TTS for high-quality neural speech
   
   Prometheus + Grafana for Observability & Monitoring
-
   
 ---
 
@@ -46,11 +45,6 @@ project/
 
 ```bash
 pip install -r requirements.txt
-
-### Quick Setup  
-1. **Install dependencies**:  
- ```bash
-   pip install unidecode
  ```  
 2. **run**:  
  ```bash
