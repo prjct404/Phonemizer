@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.wheels/
+.gitignore
+# Editors/OS
+.vscode/
+.idea/
+
+# Streamlit local state
+.streamlit/
+
+# Secrets (never bake)
+.env
+
+# Large weights - mount at runtime
+model-weights/
+training-scripts/
+testing-scripts/
+# Parsivar/
+venv/
