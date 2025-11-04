@@ -10,3 +10,5 @@ DEFAULT_VOICE      = os.getenv("DEFAULT_VOICE", "fa-IR-DilaraNeural")
 OPENROUTER_MODEL   = os.getenv("OPENROUTER_MODEL", "google/gemini-2.5-flash")
 MODEL_PATH         = os.getenv("MODEL_PATH", "model-weights/homo-t5")
 PROMPT_FILE        = os.getenv("PROMPT_FILE", "prompt_base.txt")
+OPEN_ROUTER        = os.getenv("OPEN_ROUTER", "https://openrouter.ai/api/v1")
+# https://openrouter.ai/api/v1

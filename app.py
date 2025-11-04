@@ -6,14 +6,8 @@ from openai import OpenAI
 from GE2PE import GE2PE
 import edge_tts
 from edge_tts.exceptions import NoAudioReceived
-from config import OPENROUTER_API_KEY, DEFAULT_VOICE, OPENROUTER_MODEL, MODEL_PATH, PROMPT_FILE
+from config import OPENROUTER_API_KEY, DEFAULT_VOICE, OPENROUTER_MODEL, MODEL_PATH, PROMPT_FILE , OPEN_ROUTER
 
-# --- constants ---
-# MODEL_PATH = "model-weights/homo-t5"
-# PROMPT_FILE = "prompt_base.txt"
-# OPENROUTER_MODEL = "google/gemini-2.5-flash"
-# VOICE = "fa-IR-DilaraNeural"  # default voice (female voice)
-# os.environ["OPENROUTER_API_KEY"]="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"
 
 REPLACEMENTS = {"a":"A", "$":"S", "/":"a", "1":"", ";":"Z", "@":"?", "c":"C"}
 
@@ -79,6 +73,10 @@ def is_persian_text(text):
     
     return is_persian, non_persian_chars
 
+def replace_sukkun(text : str)-> str:
+    sukkun = '\u0652'
+    return text.replace(sukkun , ''  )
+
 def validate_persian_input(text):
     """
     Validate that input text is in Persian.
@@ -133,7 +131,7 @@ def init_client():
     if not key:
         st.error("❗ Please set OPENROUTER_API_KEY in your .env file.")
         st.stop()
-    return OpenAI(base_url="https://openrouter.ai/api/v1", api_key=key)
+    return OpenAI(base_url=OPEN_ROUTER, api_key=key)
 
 def call_llm(client, model_id, sys, user):
     resp = client.chat.completions.create(
@@ -250,6 +248,7 @@ if st.button("Convert + Send to LLM + Speak Both"):
         # LLM
         st.subheader("🤖 LLM Output")
         ai_text = call_llm(client, OPENROUTER_MODEL, base_prompt, phoneme)
+        ai_text= replace_sukkun(ai_text)
         st.write(ai_text)
 
         # TTS #1 — Original input
