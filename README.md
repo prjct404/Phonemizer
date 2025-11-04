@@ -45,8 +45,13 @@ project/
 
 ```bash
 pip install -r requirements.txt
- ```  
-2. **run**:  
+ ```
+2. **move and unrar**: 
+```bash
+unrar x rar_files/*.rar ./
+ ```
+3. **run these commands**:
+   you have to add openrouter token to .env
  ```bash
    cp env.example .env
    docker compose up -d
