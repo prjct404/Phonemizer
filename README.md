@@ -23,11 +23,10 @@ This project converts **Persian text** into **natural speech** using the followi
 | ✅ Neural TTS | Uses `edge-tts` Persian voices |
 | ✅ Metrics Export | Pipeline latency, errors, TTS usage, token usage |
 | ✅ Grafana Dashboard | Real-time pipeline visibility |
-
+---
 
 ## 🧱 Project Structure
 
----
 ```bash
 project/
 ├─ app/
@@ -45,7 +44,13 @@ project/
 
 ```bash
 pip install -r requirements.txt
- ```  
+ ```
+
+2. **move and unzip folders**:
+
+```bash 
+unrar x rar_files/*.rar ./
+```
 2. **run**:  
  ```bash
    cp env.example .env
